@@ -1,0 +1,498 @@
+
+
+Sub ReportAutomation()
+        
+        'codes to make the applcation faster
+        '----------------------------------------------------------------
+        'Application.ScreenUpdating = False
+        'Application.Calculation = xlCalculationManual
+        
+        
+        
+
+   ' -------------------------DECLARING VARIABLES--------------------------------------
+   Dim wb As Workbook
+   Dim wbNew As Workbook
+   Dim sh As Worksheet
+   
+   Dim shNew As Worksheet
+   Dim shNewSum As Worksheet
+   Dim res As Integer
+   ' ------------------------END OF VARIABLES------------------------------------------
+
+   Set wb = ActiveWorkbook            'ThisWorkbook
+   Workbooks.Add                 ' Open a new workbook
+   Set wbNew = ActiveWorkbook
+   On Error Resume Next
+
+
+
+  ' --------------------------------SUMMARY SHEET---------------------------------------
+   
+   For Each sh In wb.Worksheets
+      
+               ' sh.Range("C1:C180").Copy
+                
+                With wbNew.Worksheets
+                      Set shNewSum = Nothing
+                      Set shNewSum = .Item(sh.Name)
+                      
+                      If shNewSum Is Nothing Then
+                          .Add After:=.Item(.Count)
+                          .Item(.Count).Name = sh.Name & "SUMMARY"
+                          Set shNewSum = .Item(.Count)
+                      End If
+                 End With
+                 
+              
+                        
+            For i = 2 To 500
+                  If sh.Range("A" & i).Value = "Lagos" Then
+                  
+                        sh.Range("C" & i, "D" & i).Copy
+                        shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                        
+                        res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                        shNewSum.Range("D" & i + 7).Value = res
+                        
+            
+                        
+                  ElseIf sh.Range("A" & i).Value = "National" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                              
+                                                            
+                   ElseIf sh.Range("A" & i).Value = "South East" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                              
+                  ElseIf sh.Range("A" & i).Value = "South West" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                              
+                  ElseIf sh.Range("A" & i).Value = "South South" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                              
+                  ElseIf sh.Range("A" & i).Value = "North Central" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                              
+                  ElseIf sh.Range("A" & i).Value = "North West" Then
+                              sh.Range("C" & i, "D" & i).Copy
+                              shNewSum.Range("A" & i + 7).PasteSpecial xlValue
+                              
+                              res = Application.WorksheetFunction.Sum(sh.Range("H" & i, "AL" & i))
+                              shNewSum.Range("D" & i + 7).Value = res
+                  End If
+                  
+                  
+              Next
+              
+            
+                  If shNewSum.Cells(x, 1).Value <> shNewSum.Cells(x - 1, 1).Value Then
+                              shNewSum.Range("A" & x).EntireRow.Insert Shift:=xlDown
+                  End If
+                  
+              
+              
+            For i = 2 To 500
+                  If sh.Range("A" & i).Value = "Lagos" Then
+                  
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                       shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                       shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                       shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                       shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                       shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                       shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                       shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                       
+                       shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                       shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                       
+                       shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                  
+                        
+                  ElseIf sh.Range("A" & i).Value = "National" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                       shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                       
+                       shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                              
+                   ElseIf sh.Range("A" & i).Value = "South East" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                       shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                       
+                       shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                              
+                  ElseIf sh.Range("A" & i).Value = "South West" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                       shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                       
+                       shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+
+                              
+                  ElseIf sh.Range("A" & i).Value = "South South" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                        shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                        
+                        shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                                                           
+                  ElseIf sh.Range("A" & i).Value = "North Central" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                       shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                       
+                       shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                              
+                  ElseIf sh.Range("A" & i).Value = "North West" Then
+                        sh.Range("G" & i).Copy
+                        shNewSum.Range("C" & i + 7).PasteSpecial xlValue
+                        
+                        shNewSum.Range("F" & i + 7).FormulaR1C1 = "=RC[-2]*RC[-1]"
+                        shNewSum.Range("H" & i + 7).FormulaR1C1 = "=RC[-1]*RC[-3]"
+                        shNewSum.Range("J" & i + 7).FormulaR1C1 = "=RC[-5]*RC[-1]"
+                        shNewSum.Range("L" & i + 7).FormulaR1C1 = "=RC[-7]*RC[-1]"
+                        shNewSum.Range("N" & i + 7).FormulaR1C1 = "=RC[-9]*RC[-1]"
+                        shNewSum.Range("P" & i + 7).FormulaR1C1 = "=RC[-11]*RC[-1]"
+                        shNewSum.Range("R" & i + 7).FormulaR1C1 = "=RC[-13]*RC[-1]"
+                        shNewSum.Range("T" & i + 7).FormulaR1C1 = "=RC[-15]*RC[-1]"
+                        
+                        shNewSum.Range("U" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-14],RC[-2])/RC[-17],0)"
+                        shNewSum.Range("U" & i + 7).NumberFormat = "0%"
+                        
+                        shNewSum.Range("V" & i + 7).FormulaR1C1 = "=IFERROR(SUM(RC[-15],RC[-5],RC[-7])/RC[-18],0)"
+                       shNewSum.Range("V" & i + 7).NumberFormat = "0%"
+                  End If
+                  
+                  Range("A:I").EntireColumn.AutoFit
+                  'shNewSum.Range("U").NumberFormat = "0%"
+                
+                  
+            Next
+            
+   
+            
+                        
+            ' --------------------------------END OF SUMMARY SHEET---------------------------------------
+            
+            
+            ' --------------------------------SUMMARY COSMETICS---------------------------------------
+                  shNewSum.Range("A6", "A7").Merge
+                  shNewSum.Range("A6", "A7").Value = "STATION"
+                  
+                  shNewSum.Range("B6", "B7").Merge
+                  shNewSum.Range("B6", "B7").Value = "PROGRAMME"
+                  
+                  shNewSum.Range("C6", "C7").Merge
+                  shNewSum.Range("C6", "C7").Value = "TIME SCHEDULED"
+                  
+                  shNewSum.Range("D6", "F6").Merge
+                  shNewSum.Range("D6", "F6").Value = "SCHEDULED"
+                  
+                  shNewSum.Range("D7").Value = "SPOTS"
+                  shNewSum.Range("E7").Value = "RATE"
+                  shNewSum.Range("F7").Value = "AMOUNT"
+            
+                  shNewSum.Range("G6", "H6").Merge
+                  shNewSum.Range("G6", "H6").Value = "DETECTION"
+                  
+                  shNewSum.Range("G7").Value = "SPOTS"
+                  shNewSum.Range("H7").Value = "VALUE"
+                  
+                  shNewSum.Range("I6", "J6").Merge
+                  shNewSum.Range("I6", "J6").Value = "NON-DETECTION"
+                  
+                  shNewSum.Range("I7").Value = "SPOTS"
+                  shNewSum.Range("J7").Value = "VALUE"
+                  
+                  shNewSum.Range("K6", "L6").Merge
+                  shNewSum.Range("K6", "L6").Value = "UNSCHEDULED"
+                  
+                  shNewSum.Range("K7").Value = "SPOTS"
+                  shNewSum.Range("L7").Value = "VALUE"
+                  
+                  shNewSum.Range("M6", "N6").Merge
+                  shNewSum.Range("M6", "N6").Value = "OT/CHANNEL"
+                  
+                  shNewSum.Range("M7").Value = "SPOTS"
+                  shNewSum.Range("N7").Value = "VALUE"
+                  
+                  shNewSum.Range("O6", "P6").Merge
+                  shNewSum.Range("O6", "P6").Value = "AD SCH"
+                  
+                  shNewSum.Range("O7").Value = "SPOTS"
+                  shNewSum.Range("P7").Value = "VALUE"
+                  
+                  shNewSum.Range("Q6", "R6").Merge
+                  shNewSum.Range("Q6", "R6").Value = "OFF AIR"
+                  
+                  shNewSum.Range("Q7").Value = "SPOTS"
+                  shNewSum.Range("R7").Value = "VALUE"
+                  
+                  shNewSum.Range("S6", "T6").Merge
+                  shNewSum.Range("S6", "T6").Value = "NOT MONITORED"
+                  
+                  shNewSum.Range("S7").Value = "SPOTS"
+                  shNewSum.Range("T7").Value = "VALUE"
+                  
+                  shNewSum.Range("U6", "V6").Merge
+                  shNewSum.Range("U6", "V6").Value = "EFFICIENCY"
+                  
+                  shNewSum.Range("U7").Value = "REAL"
+                  shNewSum.Range("V7").Value = "NON"
+                  
+                  With shNewSum.Range("A6:V5000")
+                        .Font.Size = 10
+                        .HorizontalAlignment = xlCenter
+                        .VerticalAlignment = xlCenter
+                        .Font.Name = "Garamond"
+                  End With
+            
+                  shNewSum.Range("A6:V6", "A7:V7").Interior.ColorIndex = 24
+                  shNewSum.Range("A6:V6", "A7:V7").Font.Size = 9
+                  shNewSum.Range("A6:V6", "A7:V7").Font.Bold = True
+                  shNewSum.Range("A6:v7").BorderAround LineStyle:=xlContinuous, Weight:=xlMedium
+                  
+                  shNewSum.Range("A2:V2").Merge
+                  shNewSum.Range("A2:V2").Value = "SUMMARY SHEET FOR"
+                  shNewSum.Range("A2:V2").HorizontalAlignment = xlCenter
+                  shNewSum.Range("A2:V2").Font.Bold = True
+                  shNewSum.Range("A2:V2").Font.Size = 10
+                  shNewSum.Range("A2:V2").Font.FontStyle = "Geramond"
+                  shNewSum.Range("A2:V2").Interior.ColorIndex = 44
+                  shNewSum.Range("A2:v2").BorderAround LineStyle:=xlContinuous, Weight:=xlMedium
+                  
+                  shNewSum.Range("A4:V4").Merge
+                  shNewSum.Range("A4:V4").Value = "INSERT DATE"
+                  shNewSum.Range("A4:V4").HorizontalAlignment = xlCenter
+                  shNewSum.Range("A4:V4").Font.Bold = True
+                  shNewSum.Range("A4:V4").Font.Size = 10
+                  shNewSum.Range("A4:V4").Font.FontStyle = "Geramond"
+                  shNewSum.Range("A4:V4").Interior.ColorIndex = 44
+                  shNewSum.Range("A4:v4").BorderAround LineStyle:=xlContinuous, Weight:=xlMedium
+                  
+                 
+            
+            ' --------------------------------END OF SUMMARY COSMETICS---------------------------------------
+                
+                
+                
+                
+            
+                ' -------------------------CREATING REPORT------------------------------------------------
+                sh.Range("C2:C500, D2:D500,E2:E500, F2:F500, G2:G500").Copy
+                
+                'add new sheet into new workbook with the same name
+                With wbNew.Worksheets
+                      Set shNew = Nothing
+                      Set shNew = .Item(sh.Name)
+
+                      If shNew Is Nothing Then
+                          .Add After:=.Item(.Count)
+                          .Item(.Count).Name = sh.Name
+                          Set shNew = .Item(.Count)
+                      End If
+
+                 End With
+
+                ' pasting the copied vale
+
+                With shNew.Range("A9")
+                    .PasteSpecial (xlPasteColumnWidths)
+                    .PasteSpecial (xlValues)
+                    .Sort
+
+                End With
+                
+                
+                
+                 Dim m As Long
+    
+            For m = shNew.Range("A:A").SpecialCells(xlCellTypeLastCell).Row To 2 Step -1
+  
+                     If Range("a" & m).Value <> Range("a" & m - 1).Value Then
+                        Range("a" & m).EntireRow.Insert
+            
+                     End If
+        
+              Next
+    
+               ' -----------------------------------END OF REPORT-----------------------------------------
+                
+
+               
+               
+               ' --------------------------- PUTTING SOME COSMETICS ----------------------------------------
+                
+                
+                ' background color of A9:I9
+                shNew.Range("A9:I9").Interior.ColorIndex = 24
+
+                ' Report design
+                shNew.Range("A1:I1").Merge
+                shNew.Range("A1:I1").Font.Size = 13
+                shNew.Range("A1:I1").Font.Bold = True
+                shNew.Range("A1:I1").Value = "Brand Report"
+                Range("A1:I1").HorizontalAlignment = xlCenter
+                shNew.Range("A1:I1").Interior.ColorIndex = 44
+                shNew.Range("A9").AutoFit
+
+                shNew.Range("A3:I3").Merge
+                shNew.Range("A3:I3").Interior.ColorIndex = 44
+                shNew.Range("A3:I3").Value = "ELECTRONIC MEDIA TRACKING REPORT"
+                shNew.Range("A3:I3").Font.Bold = True
+                shNew.Range("A3:I3").Font.Size = 16
+                Range("A3:I3").HorizontalAlignment = xlCenter
+
+                ' Brand part
+                shNew.Range("A5:B5").Merge
+                shNew.Range("A5:B5").Value = "BRAND"
+                shNew.Range("A5:B5").Font.Size = 12
+                shNew.Range("A5:B5").Font.Bold = True
+                Range("A5:B5").HorizontalAlignment = xlCenter
+                Range("A9:I180").HorizontalAlignment = xlCenter
+
+                ' Campaign part
+                shNew.Range("A7:B7").Merge
+                shNew.Range("A7:B7").Value = "CAMPAIGN"
+                shNew.Range("A7:B7").Font.Size = 12
+                shNew.Range("A7:B7").Font.Bold = True
+                Range("A7:B7").HorizontalAlignment = xlCenter
+
+                ' Period part
+                shNew.Range("G5").Value = "PERIOD"
+                shNew.Range("G5").Font.Size = 12
+                shNew.Range("G5").Font.Bold = True
+                Range("G5").HorizontalAlignment = xlCenter
+
+                ' Company part
+                shNew.Range("G7").Value = "COMPANY"
+                shNew.Range("G7").Font.Size = 12
+                shNew.Range("G7").Font.Bold = True
+                Range("G7").HorizontalAlignment = xlCenter
+
+
+                 ' sorting the data
+                 shNew.Range("A9:A180").Sort Order1:=xlAscending, Header:=xlYes
+                shNew.Cells.Font.Name = "Garamond"
+                shNew.Range("A9:I180").Font.Size = 10
+
+
+                shNew.Range("A9").Value = "STATION"
+                shNew.Range("B9").Value = "PROGRAM"
+                shNew.Range("C9").Value = "LANGUAGE"
+                shNew.Range("D9").Value = "DURATION"
+                shNew.Range("E9").Value = "TIME SCHEDULE"
+                shNew.Range("F9").Value = "DATE"
+                shNew.Range("G9").Value = "CAMPAIGN THEME"
+                shNew.Range("H9").Value = "TIME DETECTED"
+                shNew.Range("I9").Value = "COMMENT"
+
+
+                 shNew.Range("A9:I9").BorderAround LineStyle:=xlContinuous, Weight:=xlMedium
+
+                ' Resizes the column accordingly
+                shNew.Columns("A:I").EntireColumn.AutoFit
+                shNew.Range("A:I").HorizontalAlignment = xlCenter
+
+
+                ' -----------------------END OF COSMETICS------------------------------------------------
+
+
+      
+      Next sh
+      
+      ' Success message
+      MsgBox "TEMPLATED CREATED SUCCESSFULLY", vbInformation, "REPORT TEMPLATE"
+      
+      'Application.ScreenUpdating = True
+      'Application.Calculation = xlCalculationAutomatic
+   
+End Sub
+
+
